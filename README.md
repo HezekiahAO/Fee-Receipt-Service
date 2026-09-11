@@ -138,5 +138,5 @@ http://localhost:8080/swagger-ui.html
 8. Add mock webhooks and HMAC verification.
 9. Add integration coverage and finish API documentation.
 
-Image so you don't have to necessaryly run it:
+# Image so you don't have necessarily run it to see things work:
 ![alt text](<Screenshot (2001).png>)
