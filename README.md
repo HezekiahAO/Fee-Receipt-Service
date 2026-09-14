@@ -42,23 +42,24 @@ Complete this flow first:
 
 ## Finance Rules
 
-- Use `BigDecimal` for all monetary calculations.
-- Store and return an explicit currency.
-- Reject duplicate payment references.
-- Reject payments greater than the outstanding invoice balance.
-- Treat an idempotency key reused with a different request as a conflict.
-- Return HTTP `422 Unprocessable Entity` for validation failures.
-- Keep payment creation and balance updates transactional.
+- Used `BigDecimal` for all monetary calculations.
+- Stored and return an explicit currency.
+- Rejected duplicate payment references.
+- Rejected payments greater than the outstanding invoice balance.
+- Treated an idempotency key reused with a different request as a conflict.
+- Returned HTTP `422 Unprocessable Entity` for validation failures.
+- Kept payment creation and balance updates transactional.
 
 ## Local PostgreSQL
 
-PostgreSQL is installed and managed through pgAdmin/SQLTools. The terminal client `psql` is not currently available on PATH. This does not prevent the application from connecting to PostgreSQL, but adding the PostgreSQL `bin` directory to PATH will make database commands easier.
+PostgreSQL is installed and usually managed through pgAdmin/SQLTools, but the terminal client `psql` is now currently available on PATH in my vscode. You can set your db path and connect to the db by using the command:
 
-The usual Windows path is:
+$psqlBin = 'D:\PostgreSQL\18\bin'; $userPath = [Environment]::GetEnvironmentVariable('Path','User'); 
+if (($userPath -split ';') -notcontains $psqlBin) { [Environment]::SetEnvironmentVariable('Path', (($userPath.TrimEnd(';')
+ + ';' + $psqlBin).Trim(';')), 'User') }; $env:Path = $psqlBin + ';' + $env:Path; psql --version
 
-```text
-C:\Program Files\PostgreSQL\<version>\bin
-```
+You can find this path (D:\PostgreSQL\18\bin') by looking for where postgres is installed on your pc.
+
 
 After adding it to the User or System PATH, open a new terminal and verify:
 
@@ -66,12 +67,18 @@ After adding it to the User or System PATH, open a new terminal and verify:
 psql --version
 ```
 
-The application database and credentials are configured outside the committed source code. The main configuration imports the project-root `.env` file, so keep credentials in this format:
+Then connect to postgres using:
+
+```powershell
+psql -U postgres -h localhost -d postgres
+```
+
+The application database and credentials are configured outside my committed source code. The main configuration imports the project-root `.env` file, so keep credentials in this format:
 
 ```env
 DB_USERNAME=postgres
 DB_PASSWORD=your-local-password
-DB_URL=jdbc:postgresql://localhost:5432/fee_receipt_db?sslmode=disable
+DB_URL=your-db-url
 ```
 
 The `.env` file is ignored by Git. Start the application normally and Spring Boot will resolve the `${DB_*}` placeholders from it:
