@@ -114,6 +114,8 @@ git init
 git status
 git add .
 git commit -m "Initial project setup"
+git rm "FILE NAME"
+git push -u origin branch name
 ```
 
 No special Git configuration is required.
