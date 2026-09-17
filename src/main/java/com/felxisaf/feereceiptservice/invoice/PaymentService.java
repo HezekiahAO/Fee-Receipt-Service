@@ -62,6 +62,16 @@ public class PaymentService {
                             + invoice.getStatus());
         }
 
+
+        // Step 3.5: load the invoice being paid and check currency matches
+
+        if (!request.getCurrency().equalsIgnoreCase(invoice.getCurrency())) {
+            throw new BusinessRuleViolationException(
+                    "Payment currency '" + request.getCurrency()
+                            + "' does not match invoice currency '" + invoice.getCurrency() + "'");
+        }
+
+
         // Step 4: compute outstanding balance and reject overpayment
         BigDecimal alreadyPaid = sumPayments(invoice.getId());
         BigDecimal outstandingBalance = invoice.getTotalAmount().subtract(alreadyPaid);
