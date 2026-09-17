@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Payment Receipt</title>
+    <style type="text/css">
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            color: #222222;
+        }
+        .header-table {
+            width: 100%;
+            border-bottom: 2px solid #333333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .institution-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .receipt-title {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: right;
+        }
+        .details-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .details-table td {
+            padding: 4px 0;
+            vertical-align: top;
+        }
+        .label {
+            color: #666666;
+            width: 160px;
+        }
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .items-table th {
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #999999;
+            padding: 6px;
+            text-align: left;
+            font-size: 11px;
+        }
+        .items-table td {
+            border-bottom: 1px solid #dddddd;
+            padding: 6px;
+        }
+        .amount-cell {
+            text-align: right;
+        }
+        .summary-table {
+            width: 50%;
+            margin-left: 50%;
+        }
+        .summary-table td {
+            padding: 4px 0;
+        }
+        .summary-label {
+            color: #666666;
+        }
+        .summary-total {
+            font-weight: bold;
+            font-size: 14px;
+            border-top: 2px solid #333333;
+            padding-top: 8px;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 10px;
+            color: #999999;
+            text-align: center;
+            border-top: 1px solid #dddddd;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <table class="header-table">
+        <tr>
+            <td class="institution-name">Fee and Receipt Service</td>
+            <td class="receipt-title">PAYMENT RECEIPT</td>
+        </tr>
+    </table>
+
+    <table class="details-table">
+        <tr>
+            <td class="label">Receipt No.</td>
+            <td th:text="${payment.paymentReference}">PAY-0001</td>
+            <td class="label">Date Paid</td>
+            <td th:text="${#temporals.format(payment.paidAt, 'dd MMM yyyy, HH:mm')}">01 Jan 2026</td>
+        </tr>
+        <tr>
+            <td class="label">Student Name</td>
+            <td th:text="${student.fullName}">Jane Doe</td>
+            <td class="label">Student Number</td>
+            <td th:text="${student.studentNumber}">STU-0001</td>
+        </tr>
+        <tr>
+            <td class="label">Invoice Number</td>
+            <td th:text="${invoice.invoiceNumber}">INV-0001</td>
+            <td class="label">Payment Method</td>
+            <td th:text="${payment.paymentMethod}">CARD</td>
+        </tr>
+    </table>
+
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th class="amount-cell">Quantity</th>
+                <th class="amount-cell">Unit Amount</th>
+                <th class="amount-cell">Line Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${invoice.items}">
+                <td th:text="${item.description}">Tuition Fee</td>
+                <td class="amount-cell" th:text="${item.quantity}">1</td>
+                <td class="amount-cell" th:text="${item.unitAmount}">100.00</td>
+                <td class="amount-cell" th:text="${item.lineTotal}">100.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="summary-table">
+        <tr>
+            <td class="summary-label">Invoice Total</td>
+            <td class="amount-cell" th:text="${invoice.currency} + ' ' + ${invoice.totalAmount}">USD 100.00</td>
+        </tr>
+        <tr>
+            <td class="summary-label">This Payment</td>
+            <td class="amount-cell" th:text="${payment.currency} + ' ' + ${payment.amount}">USD 100.00</td>
+        </tr>
+        <tr>
+            <td class="summary-label">Total Paid to Date</td>
+            <td class="amount-cell" th:text="${invoice.currency} + ' ' + ${totalPaidToDate}">USD 100.00</td>
+        </tr>
+        <tr>
+            <td class="summary-total">Outstanding Balance</td>
+            <td class="amount-cell summary-total" th:text="${invoice.currency} + ' ' + ${outstandingBalance}">USD 0.00</td>
+        </tr>
+    </table>
+
+    <div class="footer">
+        <p>This is a system-generated receipt. Generated on <span th:text="${#temporals.format(generatedAt, 'dd MMM yyyy, HH:mm')}">01 Jan 2026</span>.</p>
+    </div>
+
+</body>
+</html>
