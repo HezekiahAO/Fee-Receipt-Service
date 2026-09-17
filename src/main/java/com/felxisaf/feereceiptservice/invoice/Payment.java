@@ -63,6 +63,11 @@ public class Payment {
         this.checksum = checksum;
     }
 
+
+    public void confirmGatewayReference(String gatewayReference) {
+    this.gatewayReference = gatewayReference;
+    }
+
     @PrePersist
     protected void onCreate() {
         OffsetDateTime now = OffsetDateTime.now();

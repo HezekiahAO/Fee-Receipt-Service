@@ -10,6 +10,8 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     Optional<Payment> findByIdempotencyKey(String idempotencyKey);
 
+    Optional<Payment> findByPaymentReference(String paymentReference);
+
     boolean existsByPaymentReference(String paymentReference);
 
     List<Payment> findByInvoiceId(Long invoiceId);
