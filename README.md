@@ -148,4 +148,4 @@ http://localhost:8081/swagger-ui.html
 9. Add integration coverage and finish API documentation.
 
 # Image so you don't have necessarily run it to see things work:
-![alt text](<Screenshot (2001).png>)
+![alt text](All endpoints for the project.png)
