@@ -76,3 +76,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 }
+
+
+// Basically has all the clear response structures for all the exceptions that can be thrown in the application. It ensures that the API returns consistent error responses for different types of exceptions, making it easier for clients/me to handle errors appropriately.
+

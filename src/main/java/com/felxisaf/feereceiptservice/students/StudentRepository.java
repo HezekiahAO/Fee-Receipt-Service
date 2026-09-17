@@ -14,3 +14,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     boolean existsByStudentNumber(String studentNumber);
 }
+
+// Helps automatically generate queries based on method names, allowing for easy retrieval of student data from the database.
