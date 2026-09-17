@@ -1,5 +1,6 @@
 package com.felxisaf.feereceiptservice.invoice;
 
+import com.felxisaf.feereceiptservice.invoice.dto.InvoiceBalanceResponse;
 import com.felxisaf.feereceiptservice.invoice.dto.InvoiceRequest;
 import com.felxisaf.feereceiptservice.invoice.dto.InvoiceResponse;
 import jakarta.validation.Valid;
@@ -33,5 +34,11 @@ public class InvoiceController {
     public ResponseEntity<InvoiceResponse> issueInvoice(@PathVariable Long id) {
         Invoice invoice = invoiceService.issueInvoice(id);
         return ResponseEntity.ok(InvoiceResponse.fromEntity(invoice));
+    }
+
+    @GetMapping("/{id}/balance")
+    public ResponseEntity<InvoiceBalanceResponse> getInvoiceBalance(@PathVariable Long id) {
+        InvoiceBalanceResponse balance = invoiceService.getInvoiceBalance(id);
+        return ResponseEntity.ok(balance);
     }
 }

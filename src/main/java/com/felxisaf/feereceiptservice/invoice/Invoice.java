@@ -122,4 +122,12 @@ public class Invoice {
     public List<InvoiceItem> getItems() {
         return items;
     }
+
+    public void updateStatusAfterPayment(BigDecimal totalPaidSoFar) {
+        if (totalPaidSoFar.compareTo(this.totalAmount) >= 0) {
+            this.status = InvoiceStatus.PAID;
+        } else {
+            this.status = InvoiceStatus.PARTIALLY_PAID;
+        }
+    }
 }

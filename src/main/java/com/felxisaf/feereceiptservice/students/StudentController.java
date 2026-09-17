@@ -1,5 +1,6 @@
 package com.felxisaf.feereceiptservice.students;
 
+import com.felxisaf.feereceiptservice.students.dto.StudentBalanceResponse;
 import com.felxisaf.feereceiptservice.students.dto.StudentRequest;
 import com.felxisaf.feereceiptservice.students.dto.StudentResponse;
 import jakarta.validation.Valid;
@@ -27,5 +28,11 @@ public class StudentController {
     public ResponseEntity<StudentResponse> getStudent(@PathVariable Long id) {
         Student student = studentService.getStudentById(id);
         return ResponseEntity.ok(StudentResponse.fromEntity(student));
+    }
+
+    @GetMapping("/{id}/balance")
+    public ResponseEntity<StudentBalanceResponse> getStudentBalance(@PathVariable Long id) {
+        StudentBalanceResponse balance = studentService.getStudentBalance(id);
+        return ResponseEntity.ok(balance);
     }
 }
