@@ -26,7 +26,7 @@ public class PaymentService {
         this.invoiceRepository = invoiceRepository;
     }
 
-    @Transactional
+    @Transactional              // idempotency is handled at the service layer, so we need a transaction here to ensure atomicity.
     public Payment recordPayment(String idempotencyKey, PaymentRequest request) {
         String checksum = computeChecksum(request);
 
