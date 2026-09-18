@@ -3,3 +3,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/fee_receipt_db?sslmode=disable
     username: postgres
     password: CHANGE_ME
+
+  app:
+  webhook:
+    secret: random-secret-key

@@ -26,7 +26,7 @@ public class PaymentService {
         this.invoiceRepository = invoiceRepository;
     }
 
-    @Transactional
+    @Transactional              // idempotency is handled at the service layer, so we need a transaction here to ensure atomicity.
     public Payment recordPayment(String idempotencyKey, PaymentRequest request) {
         String checksum = computeChecksum(request);
 
@@ -61,6 +61,16 @@ public class PaymentService {
                     "Payments can only be recorded against an ISSUED or PARTIALLY_PAID invoice. Current status: "
                             + invoice.getStatus());
         }
+
+
+        // Step 3.5: load the invoice being paid and check currency matches
+
+        if (!request.getCurrency().equalsIgnoreCase(invoice.getCurrency())) {
+            throw new BusinessRuleViolationException(
+                    "Payment currency '" + request.getCurrency()
+                            + "' does not match invoice currency '" + invoice.getCurrency() + "'");
+        }
+
 
         // Step 4: compute outstanding balance and reject overpayment
         BigDecimal alreadyPaid = sumPayments(invoice.getId());

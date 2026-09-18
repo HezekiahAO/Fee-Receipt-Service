@@ -24,3 +24,7 @@ springdoc:
 
 server:
   port: ${SERVER_PORT:8081}
+
+app:
+  webhook:
+    secret: CHANGE_ME
