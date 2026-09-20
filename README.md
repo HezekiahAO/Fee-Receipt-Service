@@ -135,15 +135,15 @@ Swagger UI will be available at:
 http://localhost:8081/swagger-ui.html
 ```
 
-## Implementation Order
+## Implementation Order i followed
 
-1. Bootstrap the Maven Spring Boot project.
-2. Add configuration, Flyway, and the initial database schema.
-3. Implement students and invoices.
+1. Bootstraped the Maven Spring Boot project.
+2. Added configuration, Flyway, and the initial database schema.
+3. Implement students and invoices tables in the db.
 4. Implement transactional payments and idempotency.
 5. Implement balance summaries.
 6. Add Thymeleaf receipt templates and PDF generation.
-7. Add reconciliation endpoints.
+7. Add reconciliation endpoints (Get and Post).
 8. Add mock webhooks and HMAC verification.
 9. Add integration coverage and finish API documentation.
 
