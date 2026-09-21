@@ -54,9 +54,11 @@ Complete this flow first:
 
 PostgreSQL is installed and usually managed through pgAdmin/SQLTools, but the terminal client `psql` is now currently available on PATH in my vscode. You can set your db path and connect to the db by using the command:
 
+```powershell
 $psqlBin = 'D:\PostgreSQL\18\bin'; $userPath = [Environment]::GetEnvironmentVariable('Path','User'); 
 if (($userPath -split ';') -notcontains $psqlBin) { [Environment]::SetEnvironmentVariable('Path', (($userPath.TrimEnd(';')
  + ';' + $psqlBin).Trim(';')), 'User') }; $env:Path = $psqlBin + ';' + $env:Path; psql --version
+```powershell
 
 You can find this path (D:\PostgreSQL\18\bin') by looking for where postgres is installed on your pc.
 
