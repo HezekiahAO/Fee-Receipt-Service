@@ -60,7 +60,7 @@ if (($userPath -split ';') -notcontains $psqlBin) { [Environment]::SetEnvironmen
  + ';' + $psqlBin).Trim(';')), 'User') }; $env:Path = $psqlBin + ';' + $env:Path; psql --version
 ```powershell
 
-You can find this path (D:\PostgreSQL\18\bin') by looking for where postgres is installed on your pc.
+You can find this path ('D:\PostgreSQL\18\bin') by looking for where postgres is installed on your pc.
 
 
 After adding it to the User or System PATH, open a new terminal and verify:
