@@ -4,6 +4,6 @@ spring:
     username: postgres
     password: CHANGE_ME
 
-  app:
+app:
   webhook:
-    secret: random-secret-key
+    secret: temporary-test-secret-123
