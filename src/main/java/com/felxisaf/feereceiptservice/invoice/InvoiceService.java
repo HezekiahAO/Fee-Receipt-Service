@@ -69,10 +69,10 @@ public class InvoiceService {
 
         return invoiceRepository.save(invoice);
     }
-
+    
     @Transactional(readOnly = true)
     public Invoice getInvoiceById(Long id) {
-        return invoiceRepository.findById(id)
+        return invoiceRepository.findByIdWithItems(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Invoice not found with id: " + id));
     }
 

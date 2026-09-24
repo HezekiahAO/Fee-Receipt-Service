@@ -60,7 +60,7 @@ PostgreSQL is installed and usually managed through pgAdmin/SQLTools, but the te
 $psqlBin = 'D:\PostgreSQL\18\bin'; $userPath = [Environment]::GetEnvironmentVariable('Path','User'); 
 if (($userPath -split ';') -notcontains $psqlBin) { [Environment]::SetEnvironmentVariable('Path', (($userPath.TrimEnd(';')
  + ';' + $psqlBin).Trim(';')), 'User') }; $env:Path = $psqlBin + ';' + $env:Path; psql --version
-```powershell
+```
 
 You can find this path ('D:\PostgreSQL\18\bin') by looking for where postgres is installed on your pc.
 
