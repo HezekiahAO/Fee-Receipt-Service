@@ -101,8 +101,18 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
-}
 
+    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiError> handleMalformedJson(org.springframework.http.converter.HttpMessageNotReadableException ex) {
+        ApiError error = new ApiError(
+                HttpStatus.BAD_REQUEST.value(),
+                "Bad Request",
+                "The request body could not be parsed. Check for malformed JSON.",
+                List.of()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+}
 
 // Basically has all the clear response structures for all the exceptions that can be thrown in the application. It ensures that the API returns consistent error responses for different types of exceptions, making it easier for clients/me to handle errors appropriately.
 
