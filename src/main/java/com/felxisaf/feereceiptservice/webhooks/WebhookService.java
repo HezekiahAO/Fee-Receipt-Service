@@ -58,11 +58,11 @@ public class WebhookService {
         }
         try {
             Mac mac = Mac.getInstance("HmacSHA256");
-            mac.init(new SecretKeySpec(webhookSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
-            byte[] computedBytes = mac.doFinal(rawPayload.getBytes(StandardCharsets.UTF_8));
-            String computedHex = HexFormat.of().formatHex(computedBytes);
+            mac.init(new SecretKeySpec(webhookSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));  // Helps load the secret key for HMAC-SHA256 into the Mac instance
+            byte[] computedBytes = mac.doFinal(rawPayload.getBytes(StandardCharsets.UTF_8));            // Computes the HMAC-SHA256 for the raw payload i get using the secret key, producing a 32-byte result(signature)
+            String computedHex = HexFormat.of().formatHex(computedBytes);  // Converts the computed byte array into a hexadecimal string representation(stings of 64 characters) for easier comparison with the provided signature.
 
-            // Constant-time comparison -- avoids leaking timing information about how much
+            // Constant-time comparison avoids leaking timing information about how much
             // of the signature matched, which a naive .equals() comparison would not protect against.
             return MessageDigest.isEqual(
                     computedHex.getBytes(StandardCharsets.UTF_8),
